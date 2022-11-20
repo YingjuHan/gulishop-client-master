@@ -11,7 +11,9 @@
     <Event1 @click.native="handler1"/>
     
     <!-- 原生DOM绑定自定义事件没有任何意义，因为没有办法触发$emit函数 -->
-    <button @xxx = "handler2">原生DOM绑定自定义事件</button>
+    <button @xxx="handler2">原生DOM绑定自定义事件</button>
+
+    <Event2 @click="handler3" @xxx="handler4"></Event2>
   </div>
 </template>
 
@@ -36,8 +38,13 @@
       },
       handler2() {
         console.log("原生DOM绑定自定义事件");
-      }
-
+      },
+      handler3() {
+        console.log("Event2自定义事件click");
+      },
+      handler4() {
+        console.log("Event2自定义事件xxx");
+      },
     }
   }
 </script>
