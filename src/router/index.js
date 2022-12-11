@@ -29,6 +29,12 @@ export default new VueRouter({
         {
             path: '/register',
             component: Register,
+        },
+
+        // 重定向至Home
+        {
+            path: '*',
+            redirect: '/home'
         }
     ]
 })
