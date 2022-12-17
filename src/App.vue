@@ -3,7 +3,7 @@
     <h1> HELLO </h1>
     <Header></Header>
     <router-view></router-view> <!-- 路由组件出口的地方 -->
-    <Footer></Footer>
+    <Footer v-show="$route.meta.show"></Footer>
   </div>
 </template>
 
