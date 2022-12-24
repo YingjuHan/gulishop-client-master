@@ -1,92 +1,104 @@
 <template>
-  <div class="floor">
-    <div class="py-container">
-      <div class="title clearfix">
-        <h3 class="fl">家用电器</h3>
-        <div class="fr">
-          <ul class="nav-tabs clearfix">
-            <li class="active">
-              <a href="#tab1" data-toggle="tab">热门</a>
-            </li>
-            <li>
-              <a href="#tab2" data-toggle="tab">大家电</a>
-            </li>
-            <li>
-              <a href="#tab3" data-toggle="tab">生活电器</a>
-            </li>
-            <li>
-              <a href="#tab4" data-toggle="tab">厨房电器</a>
-            </li>
-            <li>
-              <a href="#tab5" data-toggle="tab">应季电器</a>
-            </li>
-            <li>
-              <a href="#tab6" data-toggle="tab">空气/净水</a>
-            </li>
-            <li>
-              <a href="#tab7" data-toggle="tab">高端电器</a>
-            </li>
+  <div class="footer">
+    <div class="footer-container">
+      <div class="footerList">
+        <div class="footerItem">
+          <h4>购物指南</h4>
+          <ul class="footerItemCon">
+            <li>购物流程</li>
+            <li>会员介绍</li>
+            <li>生活旅行/团购</li>
+            <li>常见问题</li>
+            <li>购物指南</li>
           </ul>
         </div>
-      </div>
-      <div class="tab-content">
-        <div class="tab-pane">
-          <div class="floor-1">
-            <div class="blockgary">
-              <ul class="jd-list">
-                <li>节能补贴</li>
-                <li>4K电视</li>
-                <li>空气净化器</li>
-                <li>IH电饭煲</li>
-                <li>滚筒洗衣机</li>
-                <li>电热水器</li>
-              </ul>
-              <img src="./images/floor-1-1.png" />
-            </div>
-            <div class="floorBanner">
-              <div class="swiper-container" id="floor1Swiper">
-                <div class="swiper-wrapper">
-                  <div class="swiper-slide">
-                    <img src="./images/floor-1-b01.png">
-                  </div>
-                  <div class="swiper-slide">
-                    <img src="./images/floor-1-b02.png">
-                  </div>
-                  <div class="swiper-slide">
-                    <img src="./images/floor-1-b03.png">
-                  </div>
-                </div>
-                <!-- 如果需要分页器 -->
-                <div class="swiper-pagination"></div>
-
-                <!-- 如果需要导航按钮 -->
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
-              </div>
-            </div>
-            <div class="split">
-              <span class="floor-x-line"></span>
-              <div class="floor-conver-pit">
-                <img src="./images/floor-1-2.png" />
-              </div>
-              <div class="floor-conver-pit">
-                <img src="./images/floor-1-3.png" />
-              </div>
-            </div>
-            <div class="split center">
-              <img src="./images/floor-1-4.png" />
-            </div>
-            <div class="split">
-              <span class="floor-x-line"></span>
-              <div class="floor-conver-pit">
-                <img src="./images/floor-1-5.png" />
-              </div>
-              <div class="floor-conver-pit">
-                <img src="./images/floor-1-6.png" />
-              </div>
-            </div>
-          </div>
+        <div class="footerItem">
+          <h4>配送方式</h4>
+          <ul class="footerItemCon">
+            <li>上门自提</li>
+            <li>211限时达</li>
+            <li>配送服务查询</li>
+            <li>配送费收取标准</li>
+            <li>海外配送</li>
+          </ul>
         </div>
+        <div class="footerItem">
+          <h4>支付方式</h4>
+          <ul class="footerItemCon">
+            <li>货到付款</li>
+            <li>在线支付</li>
+            <li>分期付款</li>
+            <li>邮局汇款</li>
+            <li>公司转账</li>
+          </ul>
+        </div>
+        <div class="footerItem">
+          <h4>售后服务</h4>
+          <ul class="footerItemCon">
+            <li>售后政策</li>
+            <li>价格保护</li>
+            <li>退款说明</li>
+            <li>返修/退换货</li>
+            <li>取消订单</li>
+          </ul>
+        </div>
+        <div class="footerItem">
+          <h4>特色服务</h4>
+          <ul class="footerItemCon">
+            <li>夺宝岛</li>
+            <li>DIY装机</li>
+            <li>延保服务</li>
+            <li>尚品汇E卡</li>
+            <li>尚品汇通信</li>
+          </ul>
+        </div>
+        <div class="footerItem">
+          <h4>帮助中心</h4>
+          <img src="./images/wx_cz.jpg" />
+        </div>
+      </div>
+      <div class="copyright">
+        <ul class="helpLink">
+          <li>
+            关于我们
+            <span class="space"></span>
+          </li>
+          <li>
+            联系我们
+            <span class="space"></span>
+          </li>
+          <li>
+            关于我们
+            <span class="space"></span>
+          </li>
+          <li>
+            商家入驻
+            <span class="space"></span>
+          </li>
+          <li>
+            营销中心
+            <span class="space"></span>
+          </li>
+          <li>
+            友情链接
+            <span class="space"></span>
+          </li>
+          <li>
+            关于我们
+            <span class="space"></span>
+          </li>
+          <li>
+            营销中心
+            <span class="space"></span>
+          </li>
+          <li>
+            友情链接
+            <span class="space"></span>
+          </li>
+          <li>关于我们</li>
+        </ul>
+        <p>地址：北京市昌平区宏福科技园综合楼6层</p>
+        <p>京ICP备19006430号</p>
       </div>
     </div>
   </div>
@@ -94,141 +106,68 @@
 <script>
 export default {
   name: 'Footer',
-  mounted(){
-  }
-}
+  mounted() {},
+};
 </script>
 
 <style lang="less" scoped>
-.floor {
-  margin-top: 15px;
+.footer {
+  background-color: #eaeaea;
 
-  .py-container {
+  .footer-container {
     width: 1200px;
     margin: 0 auto;
+    padding: 0 15px;
 
-    .title {
-      .fl {
+    .footerList {
+      padding: 20px;
+      border-bottom: 1px solid #e4e1e1;
+      border-top: 1px solid #e4e1e1;
+      overflow: hidden;
+      padding-left: 40px;
+
+      .footerItem {
+        width: 16.6666667%;
         float: left;
-        color: #c81623;
-        font-size: 20px;
-        line-height: 30px;
-        margin: 9px 0;
-        font-weight: 700;
-      }
 
-      .fr {
-        float: right;
+        h4 {
+          font-size: 14px;
+        }
 
-        .nav-tabs {
-          margin: 10px 0 0;
-          display: inline-block;
-
+        .footerItemCon {
           li {
-            float: left;
             line-height: 18px;
-
-            a {
-              padding-top: 1px;
-              font-weight: 400;
-              background-color: #fff;
-
-              &::after {
-                content: "|";
-                padding: 0 10px;
-              }
-            }
-
-            &:nth-child(7) {
-              a {
-                &::after {
-                  content: "";
-                }
-              }
-            }
-
-            &.active {
-              a {
-                color: #e1251b;
-              }
-            }
           }
+        }
+
+        &:last-child img {
+          width: 121px;
         }
       }
     }
 
-    .tab-content {
-      border-top: 2px solid #c81623;
-      border-bottom: 1px solid #e4e4e4;
+    .copyright {
+      padding: 20px;
 
-      .tab-pane {
-        .floor-1 {
-          height: 360px;
-          display: flex;
+      .helpLink {
+        text-align: center;
 
-          .blockgary {
-            width: 210px;
-            height: 100%;
-            background: #f7f7f7;
+        li {
+          display: inline;
 
-            .jd-list {
-              padding: 15px 0;
-              overflow: hidden;
-
-              li {
-                list-style-type: none;
-                float: left;
-                width: 40%;
-                margin: 0 10px;
-                border-bottom: 1px solid #e4e4e4;
-                text-align: center;
-                line-height: 26px;
-              }
-            }
-
-            img {
-              width: 100%;
-            }
-          }
-
-          .floorBanner {
-            width: 330px;
-            height: 100%;
-          }
-
-          .split {
-            width: 220px;
-            height: 100%;
-            position: relative;
-
-            .floor-x-line {
-              position: absolute;
-              background: #e4e4e4;
-              width: 220px;
-              height: 1px;
-              top: 180px;
-            }
-
-            .floor-conver-pit {
-              width: 100%;
-              height: 50%;
-
-              img {
-                width: 100%;
-                height: 100%;
-                transition: all 400ms;
-
-                &:hover {
-                  opacity: 0.8;
-                }
-              }
-            }
-          }
-
-          .center {
-            border: 1px solid #e4e4e4;
+          .space {
+            border-left: 1px solid #666;
+            width: 1px;
+            height: 13px;
+            background: #666;
+            margin: 8px 10px;
           }
         }
+      }
+
+      p {
+        margin: 10px 0;
+        text-align: center;
       }
     }
   }
