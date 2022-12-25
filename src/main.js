@@ -8,11 +8,15 @@ Vue.component(TypeNav.name, TypeNav);
 // 引入路由
 import router from '@/router'
 
+// 引入vuex仓库
+import store from '@/store'
+
 import { reqCategoryList } from '@/api'
 reqCategoryList();
 Vue.config.productionTip = false;
 
 new Vue({
   render: (h) => h(App),
-  router: router// 注册路由
+  router: router, // 注册路由
+  store: store, // 注册仓库，组件实例会多一个叫做$store的属性
 }).$mount('#app');
