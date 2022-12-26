@@ -2,34 +2,38 @@
   <!-- 商品分类导航 -->
   <div class="type-nav">
     <div class="container">
-      <h2 class="all">全部商品分类</h2>
+      <!-- 事件委派 | 事件代理 -->
       <div @mouseleave="leaveIndex">
+        <h2 class="all">全部商品分类</h2>
+        <!-- 三级联动 -->
         <div class="sort">
-        <div class="all-sort-list2">
-          <div class="item" v-for="(c1, index) in categoryList" :key="c1.categoryId"
-            :class="{ cur: currentIndex == index }">
-            <h3 @mouseenter="changeIndex(index)">
-              <a href="">{{ c1.categoryName }} - {{ index }}</a>
-            </h3>
-            <div class="item-list clearfix">
-              <div class="subitem" v-for="(c2, index) in c1.categoryChild" :key="c2.categoryId">
-                <dl class="fore">
-                  <dt>
-                    <a href="">{{ c2.categoryName }}</a>
-                  </dt>
-                  <dd>
-                    <em v-for="(c3, index) in c2.categoryChild" :key="c3.categoryId">
-                      <a href="">{{ c3.categoryName }}</a>
-                    </em>
-                  </dd>
-                </dl>
+          <div class="all-sort-list2">
+            <!-- 一级菜单 -->
+            <div class="item" v-for="(c1, index) in categoryList" :key="c1.categoryId"
+              :class="{ cur: currentIndex == index }">
+              <h3 @mouseenter="changeIndex(index)">
+                <a href="">{{ c1.categoryName }}</a>
+              </h3>
+              <!-- 二级、三级菜单 -->
+              <div class="item-list clearfix" :style="{ display: currentIndex == index ? 'block' : 'none' }">
+                <div class="subitem" v-for="(c2, index) in c1.categoryChild" :key="c2.categoryId">
+                  <dl class="fore">
+                    <dt>
+                      <a href="">{{ c2.categoryName }}</a>
+                    </dt>
+                    <dd>
+                      <em v-for="(c3, index) in c2.categoryChild" :key="c3.categoryId">
+                        <a href="">{{ c3.categoryName }}</a>
+                      </em>
+                    </dd>
+                  </dl>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      </div>
-      
+
       <nav class="nav">
         <a href="###">服装城</a>
         <a href="###">美妆馆</a>
@@ -40,7 +44,7 @@
         <a href="###">有趣</a>
         <a href="###">秒杀</a>
       </nav>
-      
+
     </div>
 
   </div>
@@ -193,11 +197,11 @@ export default {
             }
           }
 
-          &:hover {
-            .item-list {
-              display: block;
-            }
-          }
+          // &:hover { // 通过less样式实现对二三级菜单的显示/隐藏
+          //   .item-list {
+          //     display: block;
+          //   } 
+          // }
         }
 
         .cur {
