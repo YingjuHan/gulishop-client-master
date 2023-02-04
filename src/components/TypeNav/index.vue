@@ -7,7 +7,7 @@
         <h2 class="all">全部商品分类</h2>
         <!-- 三级联动 -->
         <div class="sort">
-          <div class="all-sort-list2">
+          <div class="all-sort-list2" @click="goSearch">
             <!-- 一级菜单 -->
             <div class="item" v-for="(c1, index) in categoryList" :key="c1.categoryId"
               :class="{ cur: currentIndex == index }">
@@ -83,6 +83,13 @@ export default {
     // 鼠标移出的事件回调
     leaveIndex() {
       this.currentIndex = -1;
+    },
+    goSearch() {
+      // 最好的解决方案：编程式导航+事件委派
+      // 利用事件委派存在一些问题：
+      //  1. 点击事件不一定是a标签
+      //  2. 路由跳转需要传递参数（一二三级分类产品的名字）
+      this.$router.push('/search')
     }
 
   }
