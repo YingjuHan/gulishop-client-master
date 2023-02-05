@@ -12,18 +12,22 @@
             <div class="item" v-for="(c1, index) in categoryList" :key="c1.categoryId"
               :class="{ cur: currentIndex == index }">
               <h3 @mouseenter="changeIndex(index)">
-                <a href="">{{ c1.categoryName }}</a>
+                <a :data-categoryName="c1.categoryName" :data-category1ID="c1.categoryId">{{ c1.categoryName }}</a>
               </h3>
               <!-- 二级、三级菜单 -->
               <div class="item-list clearfix" :style="{ display: currentIndex == index ? 'block' : 'none' }">
                 <div class="subitem" v-for="(c2, index) in c1.categoryChild" :key="c2.categoryId">
                   <dl class="fore">
                     <dt>
-                      <a href="">{{ c2.categoryName }}</a>
+                      <a :data-categoryName="c2.categoryName" :data-category2ID="c2.categoryId">{{
+                        c2.categoryName
+                      }}</a>
                     </dt>
                     <dd>
                       <em v-for="(c3, index) in c2.categoryChild" :key="c3.categoryId">
-                        <a href="">{{ c3.categoryName }}</a>
+                        <a :data-categoryName="c3.categoryName" :data-category3ID="c3.categoryId">{{
+                          c3.categoryName
+                        }}</a>
                       </em>
                     </dd>
                   </dl>
@@ -76,7 +80,7 @@ export default {
   methods: {
     // 鼠标进入修改响应式数据currentIndex属性
     // throttle回调函数不能使用箭头函数，否则可能出现上下文this的错误
-    changeIndex: throttle(function(index) {
+    changeIndex: throttle(function (index) {
       this.currentIndex = index;
     }, 50),
 
@@ -87,9 +91,25 @@ export default {
     goSearch() {
       // 最好的解决方案：编程式导航+事件委派
       // 利用事件委派存在一些问题：
-      //  1. 点击事件不一定是a标签
+      //  1. 点击事件不一定是a标签(点击a 标签是才进行路由跳转)
       //  2. 路由跳转需要传递参数（一二三级分类产品的名字）
-      this.$router.push('/search')
+      // 存在的另外问题：即使能够确定点击的是a标签，1,2，3级如何区分
+
+      let element = event.target; // 节点中有一个属性dataset属性，可以获取节点的自定义属性和属性值
+      let { categoryname, category1id, category2id, category3id } = element.dataset;
+      console.log(categoryname);
+      if (categoryname) {
+        
+        let location = { name: 'Search' };
+        let query = { categoryName: categoryname }
+        category1id && (query.category1ID = category1id);
+        category2id && (query.category2ID = category2id);
+        category3id && (query.category3ID = category3id);
+        location.query = query;
+        this.$router.push(location)
+      }
+      
+
     }
 
   }
