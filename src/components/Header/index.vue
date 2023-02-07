@@ -68,16 +68,19 @@ export default {
       // 第一种：字符串形式
       // this.$router.push('/search/' + this.keyWord + "?k=" + this.keyWord.toUpperCase());
       // 第二种：模板字符串
-      this.$router.push(
-        `/search/${this.keyWord}?k=${this.keyWord.toUpperCase()}`
-      );
+      // this.$router.push(
+      //   `/search/${this.keyWord}?k=${this.keyWord.toUpperCase()}`
+      // );
       // 第三种：对象
-      this.$router.push({
+      let location = {
         name: 'Search',
-        params: { keyword: this.keyWord },
-        query: { k: this.keyWord.toUpperCase() },
-      });
-    },
+        params: {
+          keyword: this.keyWord || undefined
+        },
+        query: {k: this.keyWord.toUpperCase()},
+      };
+      this.$router.push(location);
+    }, 
   },
 };
 </script>

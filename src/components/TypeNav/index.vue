@@ -3,31 +3,53 @@
   <div class="type-nav">
     <div class="container">
       <!-- 事件委派 | 事件代理 -->
-      <div @mouseleave="leaveIndex">
+      <div @mouseleave="leaveIndex" @mouseenter="enterShow">
         <h2 class="all">全部商品分类</h2>
         <!-- 三级联动 -->
-        <div class="sort">
+        <div class="sort" v-show="show">
           <div class="all-sort-list2" @click="goSearch">
             <!-- 一级菜单 -->
-            <div class="item" v-for="(c1, index) in categoryList" :key="c1.categoryId"
-              :class="{ cur: currentIndex == index }">
+            <div
+              class="item"
+              v-for="(c1, index) in categoryList"
+              :key="c1.categoryId"
+              :class="{ cur: currentIndex == index }"
+            >
               <h3 @mouseenter="changeIndex(index)">
-                <a :data-categoryName="c1.categoryName" :data-category1ID="c1.categoryId">{{ c1.categoryName }}</a>
+                <a
+                  :data-categoryName="c1.categoryName"
+                  :data-category1ID="c1.categoryId"
+                  >{{ c1.categoryName }}</a
+                >
               </h3>
               <!-- 二级、三级菜单 -->
-              <div class="item-list clearfix" :style="{ display: currentIndex == index ? 'block' : 'none' }">
-                <div class="subitem" v-for="(c2, index) in c1.categoryChild" :key="c2.categoryId">
+              <div
+                class="item-list clearfix"
+                :style="{ display: currentIndex == index ? 'block' : 'none' }"
+              >
+                <div
+                  class="subitem"
+                  v-for="(c2, index) in c1.categoryChild"
+                  :key="c2.categoryId"
+                >
                   <dl class="fore">
                     <dt>
-                      <a :data-categoryName="c2.categoryName" :data-category2ID="c2.categoryId">{{
-                        c2.categoryName
-                      }}</a>
+                      <a
+                        :data-categoryName="c2.categoryName"
+                        :data-category2ID="c2.categoryId"
+                        >{{ c2.categoryName }}</a
+                      >
                     </dt>
                     <dd>
-                      <em v-for="(c3, index) in c2.categoryChild" :key="c3.categoryId">
-                        <a :data-categoryName="c3.categoryName" :data-category3ID="c3.categoryId">{{
-                          c3.categoryName
-                        }}</a>
+                      <em
+                        v-for="(c3, index) in c2.categoryChild"
+                        :key="c3.categoryId"
+                      >
+                        <a
+                          :data-categoryName="c3.categoryName"
+                          :data-category3ID="c3.categoryId"
+                          >{{ c3.categoryName }}</a
+                        >
                       </em>
                     </dd>
                   </dl>
@@ -48,9 +70,7 @@
         <a href="###">有趣</a>
         <a href="###">秒杀</a>
       </nav>
-
     </div>
-
   </div>
 </template>
 
@@ -63,19 +83,27 @@ export default {
     return {
       // 存储鼠标移动到哪个一级分类
       currentIndex: -1,
-    }
+
+      // 显示/隐藏typenav
+      show: true,
+    };
   },
   // 组件挂载完毕，可以向服务器发请求
   mounted() {
     // 通知Vuex发请求，获取数据，存储于仓库中
-    this.$store.dispatch('categoryList')
+    this.$store.dispatch('categoryList');
+
+    // 如果不是Home路由组件，将typenav隐藏
+    if (this.$route.path != '/home') {
+      this.show = false;
+    }
   },
   computed: {
     ...mapState({
       // 右侧需要的是一个函数，当使用这个计算属性的时候，右侧函数会立即执行一次
       // 注入一个参数state，即为大仓库中的数据
-      categoryList: state => state.home.categoryList
-    })
+      categoryList: (state) => state.home.categoryList,
+    }),
   },
   methods: {
     // 鼠标进入修改响应式数据currentIndex属性
@@ -86,7 +114,10 @@ export default {
 
     // 鼠标移出的事件回调
     leaveIndex() {
-      this.currentIndex = -1;
+      if (this.$route.path != '/home') {
+        this.currentIndex = -1;
+        this.show = false;
+      }
     },
     goSearch() {
       // 最好的解决方案：编程式导航+事件委派
@@ -96,23 +127,24 @@ export default {
       // 存在的另外问题：即使能够确定点击的是a标签，1,2，3级如何区分
 
       let element = event.target; // 节点中有一个属性dataset属性，可以获取节点的自定义属性和属性值
-      let { categoryname, category1id, category2id, category3id } = element.dataset;
-      console.log(categoryname);
+      let { categoryname, category1id, category2id, category3id } =
+        element.dataset;
       if (categoryname) {
-        
         let location = { name: 'Search' };
-        let query = { categoryName: categoryname }
+        let query = { keyword: categoryname };
         category1id && (query.category1ID = category1id);
         category2id && (query.category2ID = category2id);
         category3id && (query.category3ID = category3id);
         location.query = query;
-        this.$router.push(location)
+        console.log(location);
+        this.$router.push(location);
       }
-      
-
-    }
-
-  }
+    },
+    // 当鼠标移入，显示typenav
+    enterShow() {
+      this.show = true;
+    },
+  },
 };
 </script>
 
@@ -229,7 +261,7 @@ export default {
           // &:hover { // 通过less样式实现对二三级菜单的显示/隐藏
           //   .item-list {
           //     display: block;
-          //   } 
+          //   }
           // }
         }
 
