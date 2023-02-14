@@ -122,15 +122,17 @@ export default {
       // 存在的另外问题：即使能够确定点击的是a标签，1,2，3级如何区分
 
       let element = event.target; // 节点中有一个属性dataset属性，可以获取节点的自定义属性和属性值
-      let { categoryname, category1id, category2id, category3id } =
-        element.dataset;
+      let { categoryname, category1id, category2id, category3id } = element.dataset;
       if (categoryname) {
         let location = { name: 'Search' };
-        let query = { keyword: categoryname };
+        let query = { categoryName: categoryname };
         category1id && (query.category1ID = category1id);
         category2id && (query.category2ID = category2id);
         category3id && (query.category3ID = category3id);
         location.query = query;
+        if (this.$route.params) {
+          location.params = this.$route.params;
+        }
         this.$router.push(location);
       }
     },

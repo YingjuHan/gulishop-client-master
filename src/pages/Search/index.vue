@@ -7,7 +7,7 @@
 <script>
 export default {
   name: 'Search',
-  props: ['keyword', 'k'],
+  props: ['keyword'],
 };
 </script>
 

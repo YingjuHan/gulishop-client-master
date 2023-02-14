@@ -72,15 +72,19 @@ export default {
       //   `/search/${this.keyWord}?k=${this.keyWord.toUpperCase()}`
       // );
       // 第三种：对象
-      let location = {
-        name: 'Search',
-        params: {
-          keyword: this.keyWord || undefined
-        },
-        query: {k: this.keyWord.toUpperCase()},
-      };
-      this.$router.push(location);
-    }, 
+
+      if (this.$route.query) {
+        let location = {
+          name: 'Search',
+          params: {
+            keyword: this.keyWord || undefined,
+          },
+        };
+        location.query = this.$route.query;
+        this.$router.push(location);
+      }
+      
+    },
   },
 };
 </script>
