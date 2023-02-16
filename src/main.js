@@ -11,8 +11,7 @@ import router from '@/router'
 // 引入vuex仓库
 import store from '@/store'
 
-import { reqCategoryList } from '@/api'
-reqCategoryList();
+import '@/mock/mockServe';
 Vue.config.productionTip = false;
 
 new Vue({

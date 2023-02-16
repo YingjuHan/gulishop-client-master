@@ -1,15 +1,19 @@
-import { reqCategoryList } from "@/api";
+import { reqCategoryList, reqGetBannerList } from "@/api";
 
 
 // state: 存储数据
 const state = {
     categoryList: [],
+    bannerList: [],
 };
 
 // mutations: 修改state的唯一手段
 const mutations = {
     CATEGORYLIST(state, categoryList) {
         state.categoryList = categoryList;
+    },
+    BANNERLIST(state, bannerList) {
+        state.bannerList = bannerList;
     }
 };
 
@@ -18,8 +22,17 @@ const actions = {
     // 通过api接口获取服务器数据
     async categoryList({commit}) {
         let res = await reqCategoryList();
+        
         if (res.code === 200) {
             commit('CATEGORYLIST', res.data)
+        }
+    },
+
+    async getBannerList({commit}) {
+        let res = await reqGetBannerList();
+        console.log(res);
+        if (res.code == 200) {
+            commit('BANNERLIST', res.data);
         }
     }
 };
