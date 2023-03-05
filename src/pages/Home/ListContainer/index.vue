@@ -6,18 +6,13 @@
         <!--banner轮播-->
         <div class="swiper-container" id="mySwiper">
           <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <img src="./images/banner1.jpg" />
+            <div
+              class="swiper-slide"
+              v-for="(carousel, idnex) in bannerList"
+              :key="carousel.id"
+            >
+              <img :src="carousel.imgUrl" />
             </div>
-            <!-- <div class="swiper-slide">
-              <img src="./images/banner2.jpg" />
-            </div>
-            <div class="swiper-slide">
-              <img src="./images/banner3.jpg" />
-            </div>
-            <div class="swiper-slide">
-              <img src="./images/banner4.jpg" />
-            </div> -->
           </div>
           <!-- 如果需要分页器 -->
           <div class="swiper-pagination"></div>
@@ -102,17 +97,47 @@
 
 <script>
 import { mapState } from 'vuex';
+import Swiper from 'swiper';
+import { nextTick } from 'process';
 export default {
   name: 'ListContainer',
   mounted() {
     // 派发action，通过Vuex发起ajax请求，数据存储
     this.$store.dispatch('getBannerList');
   },
-  computed:{
+  computed: {
     ...mapState({
-      bannerList: state=>state.home.bannerList,
-    })
-  }
+      bannerList: (state) => state.home.bannerList,
+    }),
+  },
+  watch: {
+    bannerList: {
+      handler(newValue, oldValue) {
+        // 通过watch监听bannerList属性的属性值的变化
+        // 如果执行handler方法，代表组件实例身上这个属性已经有了数组（四个元素）
+        // 当前这个函数执行：只能保证bannerList数据已经有了，但是不能保证v-for已经执行结束
+        // v-for执行完毕，才有结构
+        // nextTick：在下次DOM更新循环结束之后执行延迟回调，再修改数据之后立即使用这个方法，获取更新之后的DOM
+        this.$nextTick(() => {
+          // 当执行这个回调的时候：保证服务器数据回来了，v-当执行这个回调的时候：保证服务器数据回来了，v-for执行完毕了（轮播图的结构有了）
+          let mySwiper = new Swiper(
+            document.querySelector('.swiper-container'),
+            {
+              loop: true,
+              pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+              },
+              navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swpper-button-prev',
+              },
+            }
+          );
+        });
+      },
+    },
+  },
 };
 </script>
 

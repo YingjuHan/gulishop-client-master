@@ -1,5 +1,5 @@
 // 使用这个模块：API同意进行管理
-import request from "./request";
+import request from "./ajax";
 
 import mockRequest from './mockAjax';
 

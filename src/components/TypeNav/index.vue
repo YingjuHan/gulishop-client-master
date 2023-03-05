@@ -9,7 +9,7 @@
         <transition name="sort">
           <!-- 三级联动 -->
           <div class="sort" v-show="show">
-            <div class="all-sort-list2" @click="goSearch">
+            <div class="all-sort-list2" @click="goSearch" >
               <!-- 一级菜单 -->
               <div
                 class="item"
@@ -144,8 +144,8 @@ export default {
     },
     // 鼠标移出的事件回调
     leaveIndex() {
+      this.currentIndex = -1;
       if (this.$route.path != '/home') {
-        this.currentIndex = -1;
         this.show = false;
       }
     },
