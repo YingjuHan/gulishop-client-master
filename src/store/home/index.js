@@ -1,9 +1,10 @@
-import { reqCategoryList, reqGetBannerList } from '@/api';
+import { reqCategoryList, reqGetFloorList, reqGetBannerList } from '@/api';
 
 // state: 存储数据
 const state = {
   categoryList: [],
   bannerList: [],
+  floorList: [],
 };
 
 // mutations: 修改state的唯一手段
@@ -13,6 +14,9 @@ const mutations = {
   },
   GETBANNERLIST(state, bannerList) {
     state.bannerList = bannerList;
+  },
+  GETFLOORLIST(state, floorList) {
+    state.floorList = floorList;
   },
 };
 
@@ -28,8 +32,15 @@ const actions = {
 
   async getBannerList({ commit }) {
     let res = await reqGetBannerList();
-    if (res.code == 200) {
+    if (res.code === 200) {
       commit('GETBANNERLIST', res.data);
+    }
+  },
+
+  async getFloorList({ commit }) {
+    let res = await reqGetFloorList();
+    if (res.code === 200) {
+      commit('GETFLOORLIST', res.data);
     }
   },
 };
