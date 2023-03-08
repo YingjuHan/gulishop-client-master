@@ -3,7 +3,7 @@
   <div class="floor">
     <div class="py-container">
       <div class="title clearfix">
-        <h3 class="fl">家用电器</h3>
+        <h3 class="fl">{{ list.name }}</h3>
         <div class="fr">
           <ul class="nav-tabs clearfix">
             <li class="active">
@@ -35,27 +35,22 @@
           <div class="floor-1">
             <div class="blockgary">
               <ul class="jd-list">
-                <li>节能补贴</li>
-                <li>4K电视</li>
-                <li>空气净化器</li>
-                <li>IH电饭煲</li>
-                <li>滚筒洗衣机</li>
-                <li>电热水器</li>
+                <li v-for="(keyword, index) in list.keywords" :key="index">
+                  {{ keyword }}
+                </li>
               </ul>
-              <img src="./images/floor-1-1.png" />
+              <img :src="list.imgUrl" />
             </div>
             <div class="floorBanner">
-              <div class="swiper-container" id="floor1Swiper">
+              <div class="swiper-container" ref="myFloor">
                 <div class="swiper-wrapper">
-                  <div class="swiper-slide">
-                    <img src="./images/floor-1-b01.png" />
+                  <div
+                    class="swiper-slide"
+                    v-for="(carousel, idnex) in list.carouselList"
+                    :key="carousel.id"
+                  >
+                    <img :src="carousel.imgUrl" />
                   </div>
-                  <!-- <div class="swiper-slide">
-                    <img src="./images/floor-1-b02.png" />
-                  </div>
-                  <div class="swiper-slide">
-                    <img src="./images/floor-1-b03.png" />
-                  </div> -->
                 </div>
                 <!-- 如果需要分页器 -->
                 <div class="swiper-pagination"></div>
@@ -94,11 +89,25 @@
 </template>
 
 <script>
+import Swiper from 'swiper';
 export default {
   name: 'Floor',
-  props: [
-    'list',
-  ]
+  props: ['list'],
+  mounted() {
+    // 在前面实现轮播图时，是在当前组件内发请求、动态渲染结构【前端要等服务器数据发送回来】，因此之前的写法在这里不行
+    // 现在的可以在mounted中完成，因为请求是父组件发出，父组件通过props传递过来，而且结构已经有了的情况下执行的mounted
+    let mySwiper = new Swiper(this.$refs.myFloor, {
+      loop: true,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swpper-button-prev',
+      },
+    });
+  },
 };
 </script>
 
