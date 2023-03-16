@@ -24,19 +24,8 @@
               <img :src="list.imgUrl" />
             </div>
             <div class="floorBanner">
-              <div class="swiper-container" ref="myFloor">
-                <div class="swiper-wrapper">
-                  <div class="swiper-slide" v-for="(carousel, index) in list.carouselList" :key="carousel.id">
-                    <img :src="carousel.imgUrl" />
-                  </div>
-                </div>
-                <!-- 如果需要分页器 -->
-                <div class="swiper-pagination"></div>
-
-                <!-- 如果需要导航按钮 -->
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
-              </div>
+              <!-- 轮播图的地方 -->
+              <Carousel :list="list.carouselList"/>
             </div>
             <div class="split">
               <span class="floor-x-line"></span>
@@ -71,21 +60,26 @@ import Swiper from 'swiper';
 export default {
   name: 'Floor',
   props: ['list'],
-  mounted() {
-    // 在前面实现轮播图时，是在当前组件内发请求、动态渲染结构【前端要等服务器数据发送回来】，因此之前的写法在这里不行
-    // 现在的可以在mounted中完成，因为请求是父组件发出，父组件通过props传递过来，而且结构已经有了的情况下执行的mounted
-    let mySwiper = new Swiper(this.$refs.myFloor, {
-      loop: true,
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-      },
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swpper-button-prev',
-      },
-    });
-  },
+  // watch: {
+  //   list: {
+  //     immediate: true,
+  //     handler() {
+  //       this.$nextTick(() => {
+  //         let mySwiper = new Swiper(this.$refs.myFloor, {
+  //           loop: true,
+  //           pagination: {
+  //             el: '.swiper-pagination',
+  //             clickable: true,
+  //           },
+  //           navigation: {
+  //             nextEl: '.swiper-button-next',
+  //             prevEl: '.swpper-button-prev',
+  //           },
+  //         });
+  //       })
+  //     }
+  //   }
+  // }
 };
 </script>
 
