@@ -18,3 +18,12 @@ export const reqGetBannerList = () => {
 export const reqGetFloorList = () => {
     return mockRequest.get('/floor');
 }
+
+// 获取search数据 地址api/list 请求post 参数：需要
+export const reqGetSearchInfo = (params) => {
+    return request({
+        url: '/list',
+        method: 'post',
+        data: params,
+    })
+}
