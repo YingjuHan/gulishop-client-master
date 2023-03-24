@@ -21,6 +21,9 @@ import 'swiper/css/swiper.css'
 
 new Vue({
   render: (h) => h(App),
+  beforeCreate() {
+    Vue.prototype.$bus = this;
+  },
   router: router, // 注册路由
   store: store, // 注册仓库，组件实例会多一个叫做$store的属性
 }).$mount('#app');

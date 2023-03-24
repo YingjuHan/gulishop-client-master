@@ -56,8 +56,7 @@
         </li>
       </ul>
     </div>
-    <div class="fl ext">
-    </div>
+    <div class="fl ext"></div>
   </div>
 </template>
 

@@ -11,10 +11,12 @@
             </li>
           </ul>
           <ul class="fl sui-tag">
-            <li class="with-x">手机</li>
-            <li class="with-x">iphone<i>×</i></li>
-            <li class="with-x">华为<i>×</i></li>
-            <li class="with-x">OPPO<i>×</i></li>
+            <li class="with-x" v-if="searchParams.categoryName">{{ searchParams.categoryName }}
+              <i @click="removeCategoryName">x</i>
+            </li>
+            <li class="with-x" v-if="searchParams.keyword">{{ searchParams.keyword }}
+              <i @click="removeKeyword">x</i>
+            </li>
           </ul>
         </div>
 
@@ -142,16 +144,60 @@ export default {
     // 在发送请求之前带给服务器参数【searchParams参数发生变化有数值请求服务器】
     this.getData();
   },
-  computed: {
-    ...mapGetters(['goodsList'])
-  },
   methods: {
     // 向服务器发请求，获取search模块数据（根据参数不同返回不同的数据进行展示）
     // 把这次请求封装为一个函数，需要时调用即可
     getData() {
       this.$store.dispatch('getSearchList', this.searchParams);
+    },
+
+    removeCategoryName() {
+      // undefined不会发给服务器
+      this.searchParams.categoryName = undefined;
+      this.searchParams.category1Id = undefined;
+      this.searchParams.category2Id = undefined;
+      this.searchParams.category3Id = undefined;
+      this.searchParams.keyword = '';
+      this.getData();
+
+      // 地址栏修改
+      if (this.$route.params) {
+        this.$router.push({ name: 'Search', params: this.$route.params });
+      }
+    },
+
+    removeKeyword() {
+      this.searchParams.keyword = undefined;
+      this.getData();
+
+      // 通过全局事件总线发送清除事件
+      this.$bus.$emit('clear')
+
+      if (this.$route.query) {
+        this.$router.push({ name: 'Search', query: this.$route.query });
+      }
+    }
+  },
+  computed: {
+    ...mapGetters(['goodsList'])
+  },
+  watch: { // 数据监听，监听组件实例身上属性的属性值的变化
+    // 监听属性
+    $route(newValue, oldValue) {
+      // 再次发请求之前，需要重新整理发给服务器的数据
+      Object.assign(this.searchParams, this.$route.query, this.$route.params);
+
+      // 再次发起请求
+      this.getData();
+
+      // 每一次请求完毕，应该把相应的1,2,3级分类id质控，以便接受下一次的响应123
+      // 分类名与关键字不用置空的原因是: 每一次路由发生变化的时候,都会给他赋予新的数据
+      this.searchParams.category1Id = undefined;
+      this.searchParams.category2Id = undefined;
+      this.searchParams.category3Id = undefined;
     }
   }
+
 }
 </script>
 
