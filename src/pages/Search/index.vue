@@ -21,11 +21,15 @@
             <!-- 品牌 -->
             <li class="with-x" v-if="searchParams.trademark">{{ searchParams.trademark.split(':')[1] }}<i
                 @click="removeTrademark">x</i></li>
+
+            <!-- 属性值 -->
+            <li class="with-x" v-for="(attrValue, index) in searchParams.props" :key="index">{{ attrValue.split(':')[1]
+            }}<i @click="removeAttr(index)">x</i></li>
           </ul>
         </div>
 
         <!--selector-->
-        <SearchSelector @trademarkInfo="trademarkInfo" />
+        <SearchSelector @trademarkInfo="trademarkInfo" @attrInfo="attrInfo" />
 
         <!--details-->
         <div class="details clearfix">
@@ -186,7 +190,12 @@ export default {
       this.searchParams.trademark = undefined;
       this.getData();
 
-      
+
+    },
+
+    removeAttr(index) {
+      this.searchParams.props.splice(index, 1);
+      this.getData();
     },
 
     // 自定义事件回调，接收子组件传来的数据
@@ -194,6 +203,15 @@ export default {
       // 整理品牌字段的参数，"ID:品牌参数"
       this.searchParams.trademark = `${trademark.tmId}:${trademark.tmName}`;
       this.getData(); // 再次发请求获取search模块列表数据
+    },
+
+    // 收集平台属性的回调函数（自定义事件）
+    attrInfo(attrs, attrValue) {
+      let prop = `${attrs.attrId}:${attrValue}:${attrs.attrName}`;
+      if (this.searchParams.props.indexOf(prop) === -1) {
+        this.searchParams.props.push(prop);
+        this.getData(); // 再次发请求
+      }
     }
   },
   computed: {

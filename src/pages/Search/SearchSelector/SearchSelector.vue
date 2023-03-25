@@ -25,11 +25,16 @@
         <a href="javascript:void(0);">更多</a>
       </div>
     </div>
+    <!-- 平台售卖属性 -->
     <div class="type-wrap" v-for="(attrs, index) in attrsList" :key="attrs.attrId">
+
+      <!-- 平台售卖属性: 属性名（eg. 颜色） -->
       <div class="fl key">{{ attrs.attrName }}</div>
       <div class="fl value">
         <ul class="type-list">
-          <li v-for="(attrValue, index) in attrs.attrValueList" :key="index">
+
+          <!-- 平台相应售卖商品属性的属性值（eg. 具体颜色） -->
+          <li v-for="(attrValue, index) in attrs.attrValueList" :key="index" @click="attrInfo(attrs, attrValue)">
             <a>{{ attrValue }}</a>
           </li>
         </ul>
@@ -72,6 +77,9 @@ export default {
     trademarkHandler(trademark) { // 点击后，需要整理参数，向服务器发请求获取响应的数据进行展示
       // 父组件中searchParams参数是带给服务器参数，子组件是把点击的品牌信息传递给父组件
       this.$emit('trademarkInfo', trademark)
+    },
+    attrInfo(attrs, attrValue) { // 平台售卖属性值的点击回调事件
+      this.$emit('attrInfo', attrs, attrValue);
     }
   }
 }
