@@ -11,17 +11,21 @@
             </li>
           </ul>
           <ul class="fl sui-tag">
-            <li class="with-x" v-if="searchParams.categoryName">{{ searchParams.categoryName }}
-              <i @click="removeCategoryName">x</i>
-            </li>
-            <li class="with-x" v-if="searchParams.keyword">{{ searchParams.keyword }}
-              <i @click="removeKeyword">x</i>
-            </li>
+            <!-- 分类 -->
+            <li class="with-x" v-if="searchParams.categoryName">{{ searchParams.categoryName }}<i
+                @click="removeCategoryName">x</i></li>
+
+            <!-- 关键字 -->
+            <li class="with-x" v-if="searchParams.keyword">{{ searchParams.keyword }}<i @click="removeKeyword">x</i></li>
+
+            <!-- 品牌 -->
+            <li class="with-x" v-if="searchParams.trademark">{{ searchParams.trademark.split(':')[1] }}<i
+                @click="removeTrademark">x</i></li>
           </ul>
         </div>
 
         <!--selector-->
-        <SearchSelector />
+        <SearchSelector @trademarkInfo="trademarkInfo" />
 
         <!--details-->
         <div class="details clearfix">
@@ -170,12 +174,26 @@ export default {
       this.searchParams.keyword = undefined;
       this.getData();
 
-      // 通过全局事件总线发送清除事件
+      // 通过全局事件总线发送清除事件给Header组件
       this.$bus.$emit('clear')
 
       if (this.$route.query) {
         this.$router.push({ name: 'Search', query: this.$route.query });
       }
+    },
+
+    removeTrademark() {
+      this.searchParams.trademark = undefined;
+      this.getData();
+
+      
+    },
+
+    // 自定义事件回调，接收子组件传来的数据
+    trademarkInfo(trademark) {
+      // 整理品牌字段的参数，"ID:品牌参数"
+      this.searchParams.trademark = `${trademark.tmId}:${trademark.tmName}`;
+      this.getData(); // 再次发请求获取search模块列表数据
     }
   },
   computed: {

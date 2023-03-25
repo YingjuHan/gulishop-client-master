@@ -4,7 +4,7 @@
       <div class="fl key brand">品牌</div>
       <div class="value logos">
         <ul class="logo-list">
-          <li v-for="(trademark, index) in trademarkList" :key="trademark.tmId">{{ trademark.tmName }}</li>
+          <li v-for="(trademark, index) in trademarkList" :key="trademark.tmId" @click="trademarkHandler(trademark)">{{ trademark.tmName }}</li>
           <li><img src="./images/phone06.png" /></li>
           <li><img src="./images/phone07.png" /></li>
           <li><img src="./images/phone08.png" /></li>
@@ -67,6 +67,12 @@ export default {
   name: 'SearchSelector',
   computed: {
     ...mapGetters(['trademarkList', 'attrsList'])
+  },
+  methods: {
+    trademarkHandler(trademark) { // 点击后，需要整理参数，向服务器发请求获取响应的数据进行展示
+      // 父组件中searchParams参数是带给服务器参数，子组件是把点击的品牌信息传递给父组件
+      this.$emit('trademarkInfo', trademark)
+    }
   }
 }
 </script>
