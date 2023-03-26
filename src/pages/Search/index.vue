@@ -35,24 +35,16 @@
         <div class="details clearfix">
           <div class="sui-navbar">
             <div class="navbar-inner filter">
+
+              <!-- 排序的结构 -->
               <ul class="sui-nav">
-                <li class="active">
-                  <a href="#">综合</a>
+                <li :class="{ active: isOne }">
+                  <a href="#">综合<span v-show="isOne" class="iconfont"
+                      :class="{ 'icon-fold': isASC, 'icon-down': isDESC }"></span></a>
                 </li>
-                <li>
-                  <a href="#">销量</a>
-                </li>
-                <li>
-                  <a href="#">新品</a>
-                </li>
-                <li>
-                  <a href="#">评价</a>
-                </li>
-                <li>
-                  <a href="#">价格⬆</a>
-                </li>
-                <li>
-                  <a href="#">价格⬇</a>
+                <li :class="{ active: isTwo }">
+                  <a href="#">价格<span v-show="isTwo" class="iconfont"
+                      :class="{ 'icon-fold': isASC, 'icon-down': isDESC }"></span></a>
                 </li>
               </ul>
             </div>
@@ -137,7 +129,7 @@ export default {
         "category3Id": "", // 三级分类
         "categoryName": "", // 
         "keyword": "", // 关键字
-        "order": "", // 排序
+        "order": "1:desc", // 排序
         "pageNo": 1,
         "pageSize": 10,
         "props": [],
@@ -189,8 +181,6 @@ export default {
     removeTrademark() {
       this.searchParams.trademark = undefined;
       this.getData();
-
-
     },
 
     removeAttr(index) {
@@ -215,7 +205,20 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['goodsList'])
+    ...mapGetters(['goodsList']),
+    isOne() {
+      return this.searchParams.order.indexOf('1') !== -1;
+    },
+    isTwo() {
+      return this.searchParams.order.indexOf('2') !== -1;
+    },
+    isASC() {
+      return this.searchParams.order.indexOf('asc') !== -1
+    },
+    isDESC() {
+      return this.searchParams.order.indexOf('desc') !== -1
+    }
+
   },
   watch: { // 数据监听，监听组件实例身上属性的属性值的变化
     // 监听属性
