@@ -225,7 +225,6 @@ export default {
       }
 
       this.searchParams.order = newOrder;
-      console.log(this.searchParams.order);
       this.getData();
     }
   },
