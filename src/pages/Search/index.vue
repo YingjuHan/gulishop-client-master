@@ -38,11 +38,11 @@
 
               <!-- 排序的结构 -->
               <ul class="sui-nav">
-                <li :class="{ active: isOne }">
+                <li :class="{ active: isOne }" @click="changeOrder('1')">
                   <a href="#">综合<span v-show="isOne" class="iconfont"
                       :class="{ 'icon-fold': isASC, 'icon-down': isDESC }"></span></a>
                 </li>
-                <li :class="{ active: isTwo }">
+                <li :class="{ active: isTwo }" @click="changeOrder('2')">
                   <a href="#">价格<span v-show="isTwo" class="iconfont"
                       :class="{ 'icon-fold': isASC, 'icon-down': isDESC }"></span></a>
                 </li>
@@ -129,7 +129,7 @@ export default {
         "category3Id": "", // 三级分类
         "categoryName": "", // 
         "keyword": "", // 关键字
-        "order": "1:desc", // 排序
+        "order": "1:desc", // 排序：初始状态应该是综合且降序
         "pageNo": 1,
         "pageSize": 10,
         "props": [],
@@ -202,6 +202,31 @@ export default {
         this.searchParams.props.push(prop);
         this.getData(); // 再次发请求
       }
+    },
+
+    changeOrder(flag) { // flag形参： 他是一个标记，代表用户点击的是综合(1)， 价格(2)
+      let originOrder = this.searchParams.order;
+
+      // 获取起始状态
+      let originFlag = this.searchParams.order.split(':')[0];
+      let originSort = this.searchParams.order.split(':')[1];
+
+      let newOrder = '';
+      this.searchParams.order = '';
+
+      if (flag == originFlag) { // 这个语句确定点击的是综合
+        if (originSort == 'desc') {
+          newOrder = originFlag + ':' + 'asc'
+        } else {
+          newOrder = originFlag + ':' + 'desc'
+        }
+      } else { // 这个语句确定点击的是价格
+        newOrder = `${flag}:${'desc'}`;
+      }
+
+      this.searchParams.order = newOrder;
+      console.log(this.searchParams.order);
+      this.getData();
     }
   },
   computed: {
