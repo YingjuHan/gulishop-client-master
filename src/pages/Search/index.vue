@@ -77,10 +77,10 @@
               </li>
             </ul>
           </div>
-          
+
         </div>
         <!-- 分页器 -->
-        <Pagination/>
+        <Pagination :pageNo="8" :pageSize="3" :total="91" :continues="5" />
       </div>
     </div>
   </div>
@@ -94,7 +94,7 @@ export default {
 
   components: {
     SearchSelector,
-},
+  },
   data() {
     return {
       searchParams: { // 带给服务器的参数
