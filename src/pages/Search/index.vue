@@ -80,14 +80,15 @@
 
         </div>
         <!-- 分页器 -->
-        <Pagination :pageNo="8" :pageSize="3" :total="91" :continues="5" />
+        <Pagination :pageNo="searchParams.pageNo" :pageSize="searchParams.pageSize" :total="total" :continues="5" @getPageNo="getpageNo"/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import search from '@/store/search';
+import { mapGetters, mapState } from 'vuex';
 import SearchSelector from './SearchSelector/SearchSelector'
 export default {
   name: 'Search',
@@ -200,6 +201,12 @@ export default {
 
       this.searchParams.order = newOrder;
       this.getData();
+    },
+
+    getpageNo(pageNo) { // 获取当前是第几页
+      console.log(pageNo);
+      this.searchParams.pageNo = pageNo;
+      this.getData();
     }
   },
   computed: {
@@ -215,7 +222,12 @@ export default {
     },
     isDESC() {
       return this.searchParams.order.indexOf('desc') !== -1
-    }
+    },
+
+    // 获取search模块的产品属性
+    ...mapState({
+      total: state => state.search.searchList.total,
+    })
 
   },
   watch: { // 数据监听，监听组件实例身上属性的属性值的变化
