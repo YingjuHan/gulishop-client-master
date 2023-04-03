@@ -204,7 +204,6 @@ export default {
     },
 
     getpageNo(pageNo) { // 获取当前是第几页
-      console.log(pageNo);
       this.searchParams.pageNo = pageNo;
       this.getData();
     }
